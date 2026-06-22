@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Spectrum Resource Hub | Home</title>
+    <meta name="description" content="Comprehensive resource for Autism Spectrum Disorder including severity levels, expert guidance, and support resources.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        soft: {
+                            cream: '#fefce8',
+                            lavender: '#f3e8ff',
+                            mint: '#f0fdf4',
+                            peach: '#fff7ed',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #0369a1 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .severity-tab.active {
+            background-color: #0ea5e9;
+            color: white;
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        .focus-ring:focus-visible {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 2px;
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #report-section, #report-section * {
+                visibility: visible;
+            }
+            #report-section {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 0;
+            }
+            .print\:hidden {
+                display: none !important;
+            }
+            .print\:bg-white {
+                background-color: white !important;
+            }
+            .print\:text-black {
+                color: black !important;
+            }
+            #report-container {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
+        
+        .severity-option:has(input:checked) {
+            border-color: #0ea5e9;
+            background-color: #f0f9ff;
+        }
+        
+        /* Animation for error messages */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake-animation {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Active navigation link */
+        .nav-link.active {
+            color: #0284c7;
+            font-weight: 600;
+        }
+
+        /* FIXED HEADER STYLES */
+        /* Add padding to the body to prevent content from hiding under fixed header */
+        body {
+            padding-top: 64px; /* Height of fixed header (h-16 = 4rem = 64px) */
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Ensure the fixed header stays on top */
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        /* Adjust login section padding to account for fixed header */
+        #login-section {
+            min-height: calc(100vh - 64px); /* Viewport height minus header */
+        }
+
+        /* Smooth scrolling for better UX */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Make sure modal appears above fixed header */
+        #expert-modal {
+            z-index: 1001; /* Higher than header's z-50 */
+        }
+
+        /* Navbar shadow on scroll */
+        .navbar-scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        /* Email status styles */
+        .email-status {
+            transition: all 0.3s ease;
+        }
+        .email-status.success {
+            background-color: #10b981;
+            color: white;
+        }
+        .email-status.error {
+            background-color: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 smooth-scroll">
+
+<!-- Navigation - Fixed at top with 4 headers -->
+<nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300 top-0 left-0 right-0" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center space-x-2">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <i data-lucide="puzzle" class="w-8 h-8 text-primary-600"></i>
+                    <span class="font-bold text-xl text-slate-900">ASD Resource Hub</span>
+                </a>
+            </div>
+            
+            <!-- 4 Headers - Desktop Navigation (FIXED) -->
+            <div class="hidden md:flex space-x-8">
+                <a href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd" target="_blank" rel="noopener noreferrer" class="nav-link text-slate-600 hover:text-primary-600 font-medium transition-colors focus-ring rounded px-2 py-1" data-page="understanding">Understanding ASD</a>
+                <a href="https://theplaceforchildrenwithautism.com/diagnosing-autism/the-three-levels-of-autism" target="_blank" rel="noopener noreferrer" class="nav-link text-slate-600 hover:text-primary-600 font-medium transition-colors focus-ring rounded px-2 py-1" data-page="severity">Severity Levels</a>
+                <a href="https://www.autism.org.uk/directory" target="_blank" rel="noopener noreferrer" class="nav-link text-slate-600 hover:text-primary-600 font-medium transition-colors focus-ring rounded px-2 py-1" data-page="experts">Expert Support</a>
+                <a href="https://www.autism.org.uk/advice-and-guidance/topics/resources-for-autistic-teenagers" target="_blank" rel="noopener noreferrer" class="nav-link text-slate-600 hover:text-primary-600 font-medium transition-colors focus-ring rounded px-2 py-1" data-page="resources">Resources</a>
+            </div>
+
+            <button class="md:hidden p-2 rounded-lg hover:bg-slate-100 focus-ring" id="mobile-menu-btn" aria-label="Toggle menu">
+                <i data-lucide="menu" class="w-6 h-6 text-slate-700"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="hidden md:hidden bg-white border-t border-slate-200" id="mobile-menu">
+        <div class="px-4 pt-2 pb-3 space-y-1">
+            <a href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-primary-50">Understanding ASD</a>
+            <a href="https://theplaceforchildrenwithautism.com/diagnosing-autism/the-three-levels-of-autism" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-primary-50">Severity Levels</a>
+            <a href="https://www.autism.org.uk/directory" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-primary-50">Expert Support</a>
+            <a href="https://www.autism.org.uk/advice-and-guidance/topics/resources-for-autistic-teenagers" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary-600 hover:bg-primary-50">Resources</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Login Section -->
+    <section id="login-section" class="pt-32 pb-20 lg:pt-40 lg:pb-32 bg-gradient-to-br from-soft-cream via-white to-soft-lavender overflow-hidden relative min-h-screen flex items-center">
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s"></div>
+            <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 4s"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="max-w-md mx-auto">
+                <!-- Login Form Container -->
+                <div id="login-container" class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-4">
+                            <i data-lucide="shield-plus" class="w-8 h-8 text-primary-600"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Patient Portal</h1>
+                        <p class="text-slate-600">Access your ASD Assessment Tools</p>
+                    </div>
+
+                    <!-- Error Message Display -->
+                    <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start gap-2">
+                        <i data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                        <span id="error-message-text">Invalid credentials. Please try again.</span>
+                    </div>
+
+                    <form id="login-form" class="space-y-6" onsubmit="handleLogin(event)">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Patient ID / Email</label>
+                            <input type="text" id="patient-id" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Enter your ID or email">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+                            <input type="password" id="patient-password" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="••••••••">
+                        </div>
+
+                        <div class="flex items-center justify-between text-sm">
+                            <label class="flex items-center text-slate-600">
+                                <input type="checkbox" class="w-4 h-4 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mr-2">
+                                Remember me
+                            </label>
+                            <a href="#" onclick="showForgotPassword(event)" class="text-primary-600 hover:text-primary-700 font-medium">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all focus-ring shadow-lg shadow-primary-200 flex items-center justify-center">
+                            <i data-lucide="log-in" class="w-5 h-5 mr-2"></i>
+                            Access Assessment
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-200"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white text-slate-500">New patient?</span>
+                        </div>
+                    </div>
+
+                    <!-- Create Account Button -->
+                    <button onclick="showRegistrationForm()" class="w-full py-4 border-2 border-primary-600 text-primary-700 font-bold rounded-xl hover:bg-primary-50 transition-all focus-ring flex items-center justify-center">
+                        <i data-lucide="user-plus" class="w-5 h-5 mr-2"></i>
+                        Create New Account
+                    </button>
+
+                    <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+                        <p class="text-sm text-slate-500 mb-4">Contact your healthcare provider for access credentials if you're an existing patient.</p>
+                        <div class="flex items-center justify-center gap-2 text-xs text-slate-400">
+                            <i data-lucide="lock" class="w-3 h-3"></i>
+                            <span>HIPAA Compliant Secure Connection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Form Container (Hidden by default) -->
+                <div id="registration-container" class="hidden bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-2xl mb-4">
+                            <i data-lucide="user-plus" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold text-slate-900 mb-2">Create Account</h1>
+                        <p class="text-slate-600">Register for ASD assessment tools access</p>
+                    </div>
+
+                    <!-- Registration Error Message -->
+                    <div id="reg-error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-start gap-2">
+                        <i data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                        <span id="reg-error-text"></span>
+                    </div>
+
+                    <!-- Registration Success Message -->
+                    <div id="reg-success" class="hidden mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm flex items-start gap-2">
+                        <i data-lucide="check-circle" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                        <span id="reg-success-text"></span>
+                    </div>
+
+                    <form id="registration-form" class="space-y-5" onsubmit="handleRegistration(event)">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                            <input type="text" id="reg-fullname" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" placeholder="Enter your full name">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                            <input type="email" id="reg-email" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" placeholder="your@email.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Patient ID</label>
+                            <input type="text" id="reg-patient-id" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" placeholder="Choose a unique ID">
+                            <p class="text-xs text-slate-500 mt-1">This will be your login ID</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+                            <input type="password" id="reg-password" required minlength="8" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" placeholder="Minimum 8 characters">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" required minlength="8" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all" placeholder="Re-enter password">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Date of Birth</label>
+                            <input type="date" id="reg-dob" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Relationship to Patient</label>
+                            <select id="reg-relationship" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none">
+                                <option value="">Select one...</option>
+                                <option value="self">Self (I am the patient)</option>
+                                <option value="parent">Parent</option>
+                                <option value="guardian">Legal Guardian</option>
+                                <option value="caregiver">Caregiver</option>
+                                <option value="family">Family Member</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-start gap-2">
+                            <input type="checkbox" id="reg-terms" required class="w-4 h-4 mt-1 text-green-600 rounded border-slate-300 focus:ring-green-500">
+                            <label for="reg-terms" class="text-sm text-slate-600">
+                                I agree to the <a href="#" class="text-green-600 hover:underline">Terms of Service</a> and <a href="#" class="text-green-600 hover:underline">Privacy Policy</a>, and confirm that the information provided is accurate.
+                            </label>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button type="submit" class="flex-1 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all focus-ring shadow-lg flex items-center justify-center">
+                                <i data-lucide="user-check" class="w-5 h-5 mr-2"></i>
+                                Register
+                            </button>
+                            <button type="button" onclick="showLoginForm()" class="px-6 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+                                Back
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assessment Section (Hidden by default) -->
+    <section id="assessment-section" class="hidden py-20 bg-slate-50 min-h-screen">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                <div class="bg-gradient-to-r from-primary-600 to-purple-600 p-8 text-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="clipboard-list" class="w-8 h-8"></i>
+                            <h2 class="text-2xl font-bold">ASD Symptom Assessment</h2>
+                        </div>
+                        <span class="px-4 py-1 bg-white/20 rounded-full text-sm font-medium" id="patient-display-id">Patient: Loading...</span>
+                    </div>
+                    <p class="text-primary-100">Select all applicable symptoms and their severity levels (Mild, Moderate, Severe).</p>
+                </div>
+
+                <div class="p-8 md:p-12">
+                    <form id="symptom-form" onsubmit="generateReport(event)">
+                        <!-- Domain A: Social Communication Symptoms (A1-A13) -->
+                        <div class="mb-12">
+                            <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                                <span class="w-8 h-8 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-sm font-bold mr-3">A</span>
+                                Social Communication & Interaction Symptoms
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <!-- A1: Social Communication Difficulty -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A1" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A1</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Social Communication Difficulty</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Challenges in initiating and maintaining conversations, understanding social cues, and engaging in reciprocal communication.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A1" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A1" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A1" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A2: Poor Eye Contact -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A2" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A2</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Poor Eye Contact</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Avoids or has difficulty maintaining appropriate eye contact during interactions.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A2" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A2" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A2" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A3: Limited Facial Expression -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A3" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A3</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Limited Facial Expression</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Reduced range or intensity of facial expressions during social interactions.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A3" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A3" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A3" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A4: Repetitive Behaviors -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A4" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A4</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Repetitive Behaviors</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Engages in repetitive movements, speech patterns, or routines.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A4" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A4" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A4" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A5: Difficulty Expressing Emotions -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A5" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A5</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Difficulty Expressing Emotions</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Struggles to identify, express, or regulate emotions appropriately.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A5" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A5" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A5" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A6: Lack of Empathy Understanding -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A6" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A6</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Lack of Empathy Understanding</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Difficulty understanding or relating to others' emotions and perspectives.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A6" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A6" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A6" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A7: Limited Eye Gaze Response -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A7" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A7</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Limited Eye Gaze Response</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Does not follow or respond to others' eye gaze direction for shared attention.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A7" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A7" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A7" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A8: Unresponsive to Name -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A8" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A8</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Unresponsive to Name</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Does not consistently respond when name is called, despite normal hearing.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A8" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A8" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A8" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A9: Obsessive Interest in Specific Topics -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A9" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A9</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Obsessive Interest in Specific Topics</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Intense, focused interests in narrow topics, often to the exclusion of other activities.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A9" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A9" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A9" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A10: Strong Attachment to Objects -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A10" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A10</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Strong Attachment to Objects</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Unusual or intense attachment to specific objects, often non-toy items.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A10" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A10" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A10" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A11: Difficulty Adapting to Social Rules -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A11" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A11</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Difficulty Adapting to Social Rules</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Struggles to understand or follow unwritten social norms and conventions.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A11" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A11" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A11" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A12: Unusual Voice Tone -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A12" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A12</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Unusual Voice Tone</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Atypical pitch, rhythm, or volume of speech (e.g., monotone, robotic, or sing-song).</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A12" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A12" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A12" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A13: Poor Peer Relationships -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-blue-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A13" data-domain="A" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-semibold rounded mr-2">A13</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Poor Peer Relationships</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Difficulty forming and maintaining age-appropriate friendships and peer connections.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A13" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A13" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A13" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domain B: Additional Symptoms (A14-A22) -->
+                        <div class="mb-12">
+                            <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                                <span class="w-8 h-8 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center text-sm font-bold mr-3">B</span>
+                                Additional Behavioral & Developmental Symptoms
+                            </h3>
+                            
+                            <div class="space-y-4">
+                                <!-- A14: Resistance to Change -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A14" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A14</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Resistance to Change</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Extreme distress or difficulty when routines, schedules, or environments change.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A14" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A14" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A14" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A15: Sensory Sensitivity -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A15" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A15</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Sensory Sensitivity</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Heightened or reduced sensitivity to sounds, lights, textures, tastes, or smells.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A15" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A15" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A15" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A16: Speech Delay -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A16" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A16</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Speech Delay</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Late development of spoken language or difficulty with verbal communication.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A16" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A16" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A16" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A17: Echolalia -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A17" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A17</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Echolalia</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Repeats words or phrases heard from others, sometimes out of context.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A17" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A17" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A17" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A18: Unusual Eating or Sleeping Habits -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A18" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A18</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Unusual Eating or Sleeping Habits</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Extreme food selectivity, ritualistic eating behaviors, or irregular sleep patterns.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A18" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A18" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A18" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A19: Difficulty in Group Interaction -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A19" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A19</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Difficulty in Group Interaction</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Struggles to participate or engage appropriately in group settings.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A19" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A19" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A19" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A20: Narrow Interests -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A20" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A20</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Narrow Interests</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Limited range of interests, often focused on specific topics or activities.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A20" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A20" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A20" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A21: Lack of Imitation Skills -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A21" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A21</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Lack of Imitation Skills</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Difficulty mimicking actions, gestures, or sounds of others.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A21" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A21" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A21" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- A22: Difficulty Making Eye or Physical Contact -->
+                                <div class="symptom-group border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-colors">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-start gap-3">
+                                            <input type="checkbox" name="symptom" value="A22" data-domain="B" class="symptom-check w-5 h-5 text-primary-600 rounded border-slate-300 focus:ring-primary-500 mt-1">
+                                            <div>
+                                                <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded mr-2">A22</span>
+                                                <h4 class="font-semibold text-slate-900 inline">Difficulty Making Eye or Physical Contact</h4>
+                                                <p class="text-sm text-slate-600 mt-1">Avoids or has difficulty initiating/maintaining eye contact and physical touch.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="severity-selector ml-8 hidden">
+                                        <label class="text-sm font-medium text-slate-700 mb-2 block">Severity:</label>
+                                        <div class="flex gap-3 flex-wrap">
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-green-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A22" value="mild" class="w-4 h-4 text-green-600">
+                                                <span class="text-sm font-medium">Mild</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-amber-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A22" value="moderate" class="w-4 h-4 text-amber-600">
+                                                <span class="text-sm font-medium">Moderate</span>
+                                            </label>
+                                            <label class="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50 transition-colors severity-option">
+                                                <input type="radio" name="severity-A22" value="severe" class="w-4 h-4 text-rose-600">
+                                                <span class="text-sm font-medium">Severe</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Context -->
+                        <div class="mb-8 bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <h4 class="font-semibold text-slate-900 mb-4">Additional Context</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">Age of Onset</label>
+                                    <select id="age-onset" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none">
+                                        <option value="early">Early childhood (0-3 years)</option>
+                                        <option value="preschool">Preschool (3-5 years)</option>
+                                        <option value="school">School age (6+ years)</option>
+                                        <option value="adolescent">Adolescence</option>
+                                        <option value="adult">Adulthood</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">Current Functioning Environment</label>
+                                    <select id="functioning-env" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none">
+                                        <option value="independent">Lives independently</option>
+                                        <option value="family">Lives with family support</option>
+                                        <option value="supported">Supported living</option>
+                                        <option value="supervised">Requires 24/7 supervision</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button type="submit" class="flex-1 py-4 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all focus-ring shadow-lg flex items-center justify-center">
+                                <i data-lucide="file-text" class="w-5 h-5 mr-2"></i>
+                                Generate Clinical Report
+                            </button>
+                            <button type="button" onclick="logout()" class="px-6 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+                                Logout
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Report Section (Hidden by default) -->
+    <section id="report-section" class="hidden py-20 bg-slate-50 min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden" id="report-container">
+                <div class="bg-slate-900 text-white p-8 print:bg-white print:text-black">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="shield-plus" class="w-8 h-8 text-primary-400 print:text-slate-900"></i>
+                            <div>
+                                <h2 class="text-2xl font-bold">Clinical Assessment Report</h2>
+                                <p class="text-slate-400 text-sm print:text-slate-600">ASD Symptom Evaluation</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium" id="report-date"></p>
+                            <p class="text-xs text-slate-400 print:text-slate-500" id="report-id"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-12">
+                    <!-- Patient Info -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8 pb-8 border-b border-slate-200">
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Patient ID</h3>
+                            <p class="text-lg font-medium text-slate-900" id="report-patient-id">-</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Assessment Date</h3>
+                            <p class="text-lg font-medium text-slate-900" id="report-assessment-date">-</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Evaluator</h3>
+                            <p class="text-lg font-medium text-slate-900">Automated Clinical Assessment System</p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Report Status</h3>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                                Preliminary - Requires Clinical Review
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Severity Determination -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Severity Level Determination</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                <h4 class="font-semibold text-slate-900 mb-2">Domain A: Social Communication</h4>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span id="domain-a-badge" class="px-3 py-1 rounded-full text-sm font-bold bg-slate-200 text-slate-700">Not Assessed</span>
+                                </div>
+                                <p id="domain-a-desc" class="text-sm text-slate-600">No symptoms reported in this domain.</p>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                                <h4 class="font-semibold text-slate-900 mb-2">Domain B: Behavioral Symptoms</h4>
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span id="domain-b-badge" class="px-3 py-1 rounded-full text-sm font-bold bg-slate-200 text-slate-700">Not Assessed</span>
+                                </div>
+                                <p id="domain-b-desc" class="text-sm text-slate-600">No symptoms reported in this domain.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-primary-50 to-purple-50 rounded-xl p-6 border border-primary-200">
+                            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                <i data-lucide="award" class="w-5 h-5 text-primary-600"></i>
+                                Overall Severity Classification
+                            </h4>
+                            <div class="flex items-center gap-4 mb-3">
+                                <span id="overall-level" class="text-3xl font-bold text-primary-700">Level 0</span>
+                                <span id="overall-label" class="text-lg text-slate-700">No ASD Indicators</span>
+                            </div>
+                            <p id="overall-description" class="text-slate-600 text-sm leading-relaxed">
+                                Based on the reported symptoms, no significant indicators of ASD are present at this time.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Symptom Summary -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Symptom Analysis</h3>
+                        <div id="symptom-summary" class="space-y-3">
+                            <p class="text-slate-500 italic">No symptoms selected.</p>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Recommendations -->
+                    <div class="mb-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
+                        <h3 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">
+                            <i data-lucide="stethoscope" class="w-5 h-5"></i>
+                            Clinical Recommendations
+                        </h3>
+                        <ul id="recommendations-list" class="space-y-2 text-sm text-blue-800">
+                            <li>• Continue monitoring developmental milestones</li>
+                            <li>• Routine pediatric care recommended</li>
+                        </ul>
+                    </div>
+
+                    <!-- Support Plan -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Recommended Support Plan</h3>
+                        <div id="support-plan" class="grid gap-4">
+                            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                <p class="text-slate-600">No specific interventions recommended at this time.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expert Referral -->
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-xl mb-8">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 text-amber-600 flex-shrink-0 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-amber-900 mb-2">Important Disclaimer</h4>
+                                <p class="text-sm text-amber-800 leading-relaxed mb-4">
+                                    This report is generated based on patient-reported symptoms and does not constitute a medical diagnosis. 
+                                    A comprehensive evaluation by a qualified healthcare provider is required to confirm any diagnosis.
+                                </p>
+                                <div id="referral-section">
+                                    <p class="text-sm font-semibold text-amber-900 mb-2">Recommended Specialists for Referral:</p>
+                                    <ul class="text-sm text-amber-800 space-y-1" id="referral-list">
+                                        <li>• Developmental Pediatrician for comprehensive evaluation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Status Message -->
+                    <div id="email-status" class="hidden mb-4 p-3 rounded-lg text-sm flex items-start gap-2 email-status">
+                        <i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                        <span id="email-status-text"></span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4 pt-8 border-t border-slate-200 print:hidden">
+                        <button onclick="printReport()" class="inline-flex items-center px-6 py-3 bg-slate-800 text-white font-semibold rounded-xl hover:bg-slate-900 transition-colors">
+                            <i data-lucide="printer" class="w-5 h-5 mr-2"></i>
+                            Print Report
+                        </button>
+                        <button onclick="emailReport(event)" class="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors" id="email-report-btn">
+                            <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
+                            Email Report
+                        </button>
+                        <button onclick="newAssessment()" class="inline-flex items-center px-6 py-3 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition-colors">
+                            <i data-lucide="refresh-cw" class="w-5 h-5 mr-2"></i>
+                            New Assessment
+                        </button>
+                        <button onclick="logout()" class="ml-auto inline-flex items-center px-6 py-3 text-red-600 hover:bg-red-50 font-semibold rounded-xl transition-colors">
+                            <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-white py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-2">
+                <div class="flex items-center space-x-2 mb-4">
+                    <i data-lucide="puzzle" class="w-6 h-6 text-primary-400"></i>
+                    <span class="font-bold text-xl">ASD Resource Hub</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                    Providing comprehensive, respectful, and neurodiversity-affirming resources for the autism community. Information here is for educational purposes and does not replace professional medical advice.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold mb-4 text-slate-200">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li><a href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd" target="_blank" rel="noopener noreferrer" class="hover:text-primary-400 transition-colors">Understanding ASD</a></li>
+                    <li><a href="https://theplaceforchildrenwithautism.com/diagnosing-autism/the-three-levels-of-autism" target="_blank" rel="noopener noreferrer" class="hover:text-primary-400 transition-colors">Severity Levels</a></li>
+                    <li><a href="https://www.autism.org.uk/directory" target="_blank" rel="noopener noreferrer" class="hover:text-primary-400 transition-colors">Expert Support</a></li>
+                    <li><a href="https://www.autism.org.uk/advice-and-guidance/topics/resources-for-autistic-teenagers" target="_blank" rel="noopener noreferrer" class="hover:text-primary-400 transition-colors">Resources</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-semibold mb-4 text-slate-200">Emergency</h4>
+                <p class="text-sm text-slate-400 mb-2">If you or someone you know is in crisis:</p>
+                <a href="tel:988" class="inline-flex items-center text-primary-400 hover:text-primary-300 font-semibold">
+                    <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                    988 Suicide & Crisis Lifeline
+                </a>
+            </div>
+        </div>
+        
+        <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-500 text-sm">
+                © 2024 ASD Resource Hub. Educational resources only. Not medical advice.
+            </p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Facebook">
+                    <i data-lucide="facebook" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Twitter">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Instagram">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Expert Modal -->
+    <div id="expert-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8 relative animate-in fade-in zoom-in duration-300">
+            <button onclick="closeExpertModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors focus-ring">
+                <i data-lucide="x" class="w-5 h-5 text-slate-600"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="search" class="w-8 h-8 text-primary-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Find Local Experts</h3>
+                <p class="text-slate-600">Connect with qualified professionals in your area</p>
+            </div>
+
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('In a real implementation, this would search a database of providers. For now, please contact the resources listed below.');">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Specialty Needed</label>
+                    <select class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                        <option>Developmental Pediatrician</option>
+                        <option>Psychologist / Diagnostician</option>
+                        <option>Speech-Language Pathologist</option>
+                        <option>Occupational Therapist</option>
+                        <option>Behavior Analyst (BCBA)</option>
+                        <option>Social Worker / Case Manager</option>
+                    </select>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Zip Code</label>
+                        <input type="text" placeholder="12345" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Distance</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+                            <option>5 miles</option>
+                            <option>10 miles</option>
+                            <option>25 miles</option>
+                            <option>50 miles</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Age Group</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="w-4 h-4 text-primary-600 rounded border-slate-300 focus:ring-primary-500" checked>
+                            <span class="ml-2 text-slate-700">Children (0-12)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="w-4 h-4 text-primary-600 rounded border-slate-300 focus:ring-primary-500">
+                            <span class="ml-2 text-slate-700">Teens (13-17)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="w-4 h-4 text-primary-600 rounded border-slate-300 focus:ring-primary-500">
+                            <span class="ml-2 text-slate-700">Adults (18+)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-colors focus-ring mt-4">
+                    Search Directory
+                </button>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-slate-200">
+                <p class="text-sm text-slate-500 text-center">
+                    Can't find what you need? Call the Autism Response Team at <a href="tel:1-888-288-4762" class="text-primary-600 font-semibold">1-888-AUTISM2</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init("LuSCb25K2ZLFqDMXG");
+        })();
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mock user database (in production, this would be a backend)
+        let userDatabase = JSON.parse(localStorage.getItem('asd_user_database')) || {
+            'demo': { password: 'demo123', name: 'Demo User', email: 'demo@example.com', created: new Date().toISOString() }
+        };
+
+        // Patient Authentication State
+        let currentPatient = null;
+
+        // Add shadow to navbar when scrolling
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Set active navigation link based on current page
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active', 'text-primary-600');
+                } else {
+                    link.classList.remove('active', 'text-primary-600');
+                }
+            });
+        }
+
+        // Call on page load
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
+        // Login Handler with error message
+        function handleLogin(event) {
+            event.preventDefault();
+            const patientId = document.getElementById('patient-id').value.trim();
+            const password = document.getElementById('patient-password').value;
+            
+            // Check if user exists and password matches
+            if (userDatabase[patientId] && userDatabase[patientId].password === password) {
+                currentPatient = {
+                    id: patientId,
+                    name: userDatabase[patientId].name,
+                    email: userDatabase[patientId].email,
+                    loginTime: new Date()
+                };
+                
+                // Hide error if previously shown
+                hideLoginError();
+                
+                // Update UI
+                document.getElementById('patient-display-id').textContent = `Patient: ${patientId}`;
+                
+                // Hide login, show assessment
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('assessment-section').classList.remove('hidden');
+                
+                // Re-initialize icons for new content
+                lucide.createIcons();
+                
+                // Setup symptom checkbox listeners
+                setupSymptomListeners();
+            } else {
+                // Show error message
+                showLoginError('Invalid patient ID or password. Please try again.');
+                
+                // Shake animation on error
+                const loginContainer = document.getElementById('login-container');
+                loginContainer.classList.add('shake-animation');
+                setTimeout(() => {
+                    loginContainer.classList.remove('shake-animation');
+                }, 500);
+            }
+        }
+
+        // Show login error
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('login-error');
+            const errorText = document.getElementById('error-message-text');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        // Hide login error
+        function hideLoginError() {
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        // Show registration form
+        function showRegistrationForm() {
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('registration-container').classList.remove('hidden');
+            hideLoginError();
+            hideRegError();
+            hideRegSuccess();
+        }
+
+        // Show login form
+        function showLoginForm() {
+            document.getElementById('registration-container').classList.add('hidden');
+            document.getElementById('login-container').classList.remove('hidden');
+            hideRegError();
+            hideRegSuccess();
+        }
+
+        // Show registration error
+        function showRegError(message) {
+            const errorDiv = document.getElementById('reg-error');
+            const errorText = document.getElementById('reg-error-text');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        // Hide registration error
+        function hideRegError() {
+            document.getElementById('reg-error').classList.add('hidden');
+        }
+
+        // Show registration success
+        function showRegSuccess(message) {
+            const successDiv = document.getElementById('reg-success');
+            const successText = document.getElementById('reg-success-text');
+            successText.textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                hideRegSuccess();
+            }, 5000);
+        }
+
+        // Hide registration success
+        function hideRegSuccess() {
+            document.getElementById('reg-success').classList.add('hidden');
+        }
+
+        // Handle user registration
+        function handleRegistration(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const fullname = document.getElementById('reg-fullname').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const patientId = document.getElementById('reg-patient-id').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            const dob = document.getElementById('reg-dob').value;
+            const relationship = document.getElementById('reg-relationship').value;
+            const terms = document.getElementById('reg-terms').checked;
+
+            // Validation
+            if (!fullname || !email || !patientId || !password || !confirmPassword || !dob || !relationship) {
+                showRegError('All fields are required.');
+                return;
+            }
+
+            if (!terms) {
+                showRegError('You must agree to the Terms of Service and Privacy Policy.');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showRegError('Please enter a valid email address.');
+                return;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                showRegError('Password must be at least 8 characters long.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showRegError('Passwords do not match.');
+                return;
+            }
+
+            // Check if patient ID already exists
+            if (userDatabase[patientId]) {
+                showRegError('Patient ID already exists. Please choose a different ID.');
+                return;
+            }
+
+            // Check if email already exists
+            const emailExists = Object.values(userDatabase).some(user => user.email === email);
+            if (emailExists) {
+                showRegError('Email address already registered. Please use a different email.');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                password: password,
+                name: fullname,
+                email: email,
+                dob: dob,
+                relationship: relationship,
+                created: new Date().toISOString()
+            };
+
+            // Save to database
+            userDatabase[patientId] = newUser;
+            localStorage.setItem('asd_user_database', JSON.stringify(userDatabase));
+
+            // Show success message
+            showRegSuccess('Account created successfully! You can now log in with your Patient ID.');
+
+            // Reset form
+            document.getElementById('registration-form').reset();
+
+            // Switch to login form after 2 seconds
+            setTimeout(() => {
+                showLoginForm();
+            }, 2000);
+        }
+
+        // Forgot password handler
+        function showForgotPassword(event) {
+            event.preventDefault();
+            alert('For password assistance, please contact your healthcare provider or call our support team at 1-888-555-0123.');
+        }
+
+        // Logout Handler
+        function logout() {
+            currentPatient = null;
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('assessment-section').classList.add('hidden');
+            document.getElementById('report-section').classList.add('hidden');
+            
+            // Reset forms
+            document.getElementById('login-form').reset();
+            document.getElementById('symptom-form').reset();
+            hideLoginError();
+            
+            // Hide all severity selectors
+            document.querySelectorAll('.severity-selector').forEach(el => el.classList.add('hidden'));
+            
+            // Show login form (hide registration if visible)
+            showLoginForm();
+        }
+
+        // Setup Symptom Checkbox Listeners
+        function setupSymptomListeners() {
+            document.querySelectorAll('.symptom-check').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const severityDiv = this.closest('.symptom-group').querySelector('.severity-selector');
+                    if (this.checked) {
+                        severityDiv.classList.remove('hidden');
+                    } else {
+                        severityDiv.classList.add('hidden');
+                        // Uncheck severity radios
+                        severityDiv.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                    }
+                });
+            });
+        }
+
+        // Severity Level Definitions for Report Generation
+        const severityDefinitions = {
+            'mild': {
+                label: "Mild",
+                color: "bg-green-100 text-green-800",
+                description: "Symptoms cause noticeable but manageable impairments. Individual may need some support but can function with minimal assistance."
+            },
+            'moderate': {
+                label: "Moderate",
+                color: "bg-amber-100 text-amber-800",
+                description: "Marked deficits require substantial support. Symptoms are clearly evident and interfere significantly with daily functioning."
+            },
+            'severe': {
+                label: "Severe",
+                color: "bg-rose-100 text-rose-800",
+                description: "Severe deficits require very substantial support. Symptoms markedly interfere with all aspects of daily life."
+            }
+        };
+
+// Generate Clinical Report
+function generateReport(event) {
+    event.preventDefault();
+    
+    if (!currentPatient) {
+        alert('Please log in first');
+        return;
+    }
+
+    // WEIGHTED SYMPTOM CLASSIFICATION
+    // Core symptoms (2 points each)
+    const coreSymptoms = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A9', 'A10', 'A13', 'A14', 'A15', 'A19', 'A20', 'A22'];
+    
+    // Associated symptoms (1 point each)
+    const associatedSymptoms = ['A8', 'A12', 'A16', 'A17', 'A21', 'A11', 'A18'];
+
+    // Collect symptoms by domain with weights
+    const domainASymptoms = [];
+    const domainBSymptoms = [];
+    
+    let totalWeightedScore = 0;
+    let coreCount = 0;
+    let associatedCount = 0;
+    
+    document.querySelectorAll('.symptom-check:checked').forEach(checkbox => {
+        const symptomGroup = checkbox.closest('.symptom-group');
+        const symptomName = symptomGroup.querySelector('h4').textContent;
+        const symptomIdElement = symptomGroup.querySelector('.bg-blue-100, .bg-purple-100');
+        const symptomId = symptomIdElement ? symptomIdElement.textContent.trim() : '';
+        const domain = checkbox.dataset.domain;
+        const severityRadio = document.querySelector(`input[name="severity-${checkbox.value}"]:checked`);
+        const severity = severityRadio ? severityRadio.value : 'mild';
+        
+        // Calculate weighted score
+        let weight = 0;
+        if (coreSymptoms.includes(checkbox.value)) {
+            weight = 2;
+            coreCount++;
+        } else if (associatedSymptoms.includes(checkbox.value)) {
+            weight = 1;
+            associatedCount++;
+        }
+        
+        totalWeightedScore += weight;
+        
+        const symptomData = { 
+            id: symptomId, 
+            name: symptomName, 
+            severity: severity, 
+            value: checkbox.value,
+            weight: weight,
+            isCore: coreSymptoms.includes(checkbox.value)
+        };
+        
+        if (domain === 'A') {
+            domainASymptoms.push(symptomData);
+        } else {
+            domainBSymptoms.push(symptomData);
+        }
+    });
+
+    // Calculate traditional severity for reference (based on symptom intensity)
+    const severityValues = { 'mild': 1, 'moderate': 2, 'severe': 3 };
+    
+    const domainASeverityIntensity = domainASymptoms.length > 0 ? 
+        Math.max(...domainASymptoms.map(s => severityValues[s.severity])) : 0;
+    const domainBSeverityIntensity = domainBSymptoms.length > 0 ? 
+        Math.max(...domainBSymptoms.map(s => severityValues[s.severity])) : 0;
+    
+    // Determine overall severity based on WEIGHTED SCORE
+    let overallSeverity = 'none';
+    let overallLevelText = '';
+    let overallLevelClass = '';
+    
+    if (domainASymptoms.length === 0 && domainBSymptoms.length === 0) {
+        overallSeverity = 'none';
+        overallLevelText = 'No Symptoms';
+        overallLevelClass = 'text-slate-400';
+    } else {
+        // Classify based on weighted score
+        if (totalWeightedScore <= 12) {
+            overallSeverity = 'mild';
+            overallLevelText = 'Mild';
+            overallLevelClass = 'text-green-600';
+        } else if (totalWeightedScore <= 24) {
+            overallSeverity = 'moderate';
+            overallLevelText = 'Moderate';
+            overallLevelClass = 'text-amber-600';
+        } else {
+            overallSeverity = 'severe';
+            overallLevelText = 'Severe';
+            overallLevelClass = 'text-rose-600';
+        }
+    }
+
+    // Populate Report
+    populateReport({
+        patientId: currentPatient.id,
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        domainA: { 
+            symptoms: domainASymptoms, 
+            severityIntensity: domainASeverityIntensity,
+            count: domainASymptoms.length
+        },
+        domainB: { 
+            symptoms: domainBSymptoms, 
+            severityIntensity: domainBSeverityIntensity,
+            count: domainBSymptoms.length
+        },
+        overall: overallSeverity,
+        overallText: overallLevelText,
+        overallClass: overallLevelClass,
+        weightedScore: totalWeightedScore,
+        coreCount: coreCount,
+        associatedCount: associatedCount,
+        totalSymptoms: coreCount + associatedCount,
+        ageOnset: document.getElementById('age-onset').value,
+        functioning: document.getElementById('functioning-env').value
+    });
+
+    // Show report section
+    document.getElementById('assessment-section').classList.add('hidden');
+    document.getElementById('report-section').classList.remove('hidden');
+    
+    // Re-initialize icons
+    lucide.createIcons();
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+function populateReport(data) {
+    // Header info
+    document.getElementById('report-date').textContent = new Date().toLocaleDateString();
+    document.getElementById('report-id').textContent = `Report #ASD-${Date.now().toString().slice(-6)}`;
+    document.getElementById('report-patient-id').textContent = data.patientId;
+    document.getElementById('report-assessment-date').textContent = data.date;
+
+    // Domain A
+    const domainABadge = document.getElementById('domain-a-badge');
+    const domainADesc = document.getElementById('domain-a-desc');
+    
+    if (data.domainA.symptoms.length > 0) {
+        const intensityLabels = ['', 'Mild', 'Moderate', 'Severe'];
+        const intensityLabel = intensityLabels[data.domainA.severityIntensity] || 'Not Assessed';
+        domainABadge.textContent = intensityLabel;
+        domainABadge.className = `px-3 py-1 rounded-full text-sm font-bold ${
+            data.domainA.severityIntensity === 1 ? 'bg-green-100 text-green-800' :
+            data.domainA.severityIntensity === 2 ? 'bg-amber-100 text-amber-800' :
+            data.domainA.severityIntensity === 3 ? 'bg-rose-100 text-rose-800' :
+            'bg-slate-200 text-slate-700'
+        }`;
+        
+        // Count core vs associated in domain A
+        const coreInA = data.domainA.symptoms.filter(s => s.isCore).length;
+        const assocInA = data.domainA.symptoms.filter(s => !s.isCore).length;
+        domainADesc.textContent = `${data.domainA.symptoms.length} symptom(s) in social communication (${coreInA} core, ${assocInA} associated).`;
+    } else {
+        domainABadge.textContent = "No Symptoms Reported";
+        domainABadge.className = "px-3 py-1 rounded-full text-sm font-bold bg-slate-200 text-slate-700";
+        domainADesc.textContent = "No deficits in social communication reported by patient.";
+    }
+
+    // Domain B
+    const domainBBadge = document.getElementById('domain-b-badge');
+    const domainBDesc = document.getElementById('domain-b-desc');
+    
+    if (data.domainB.symptoms.length > 0) {
+        const intensityLabels = ['', 'Mild', 'Moderate', 'Severe'];
+        const intensityLabel = intensityLabels[data.domainB.severityIntensity] || 'Not Assessed';
+        domainBBadge.textContent = intensityLabel;
+        domainBBadge.className = `px-3 py-1 rounded-full text-sm font-bold ${
+            data.domainB.severityIntensity === 1 ? 'bg-green-100 text-green-800' :
+            data.domainB.severityIntensity === 2 ? 'bg-amber-100 text-amber-800' :
+            data.domainB.severityIntensity === 3 ? 'bg-rose-100 text-rose-800' :
+            'bg-slate-200 text-slate-700'
+        }`;
+        
+        // Count core vs associated in domain B
+        const coreInB = data.domainB.symptoms.filter(s => s.isCore).length;
+        const assocInB = data.domainB.symptoms.filter(s => !s.isCore).length;
+        domainBDesc.textContent = `${data.domainB.symptoms.length} symptom(s) in behavioral domain (${coreInB} core, ${assocInB} associated).`;
+    } else {
+        domainBBadge.textContent = "No Symptoms Reported";
+        domainBBadge.className = "px-3 py-1 rounded-full text-sm font-bold bg-slate-200 text-slate-700";
+        domainBDesc.textContent = "No behavioral symptoms reported by patient.";
+    }
+
+    // Overall Assessment - NEW WEIGHTED DISPLAY
+    const overallLevel = document.getElementById('overall-level');
+    const overallLabel = document.getElementById('overall-label');
+    const overallDesc = document.getElementById('overall-description');
+    
+    if (data.overall === 'none' || data.totalSymptoms === 0) {
+        overallLevel.textContent = "No Symptoms";
+        overallLevel.className = "text-3xl font-bold text-slate-400";
+        overallLabel.textContent = "No ASD Indicators";
+        overallDesc.textContent = "Based on the reported symptoms, no significant indicators of ASD are present at this time.";
+    } else {
+        overallLevel.textContent = data.overallText;
+        overallLevel.className = `text-3xl font-bold ${data.overallClass}`;
+        overallLabel.textContent = `${data.overallText} Severity (Score: ${data.weightedScore}/37)`;
+        
+        // Enhanced description with weighted score explanation
+        overallDesc.textContent = severityDefinitions[data.overall].description;
+        overallDesc.innerHTML += `<br><br><span class="font-semibold">Clinical Weighted Score: ${data.weightedScore}</span> (${data.coreCount} core symptoms × 2 points, ${data.associatedCount} associated symptoms × 1 point). Maximum possible score is 37.`;
+    }
+
+    // Symptom Summary with Weight Indicators
+    const summaryDiv = document.getElementById('symptom-summary');
+    let summaryHTML = '';
+    
+    [...data.domainA.symptoms, ...data.domainB.symptoms].forEach(symptom => {
+        const severityColor = symptom.severity === 'mild' ? 'text-green-600 bg-green-50' : 
+                           symptom.severity === 'moderate' ? 'text-amber-600 bg-amber-50' : 
+                           'text-rose-600 bg-rose-50';
+        const domainClass = symptom.id && symptom.id.includes('A') ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700';
+        const weightClass = symptom.isCore ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-100 text-slate-700';
+        const weightText = symptom.isCore ? 'Core (2 pts)' : 'Associated (1 pt)';
+        
+        summaryHTML += `
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="inline-block px-2 py-0.5 ${domainClass} text-xs font-semibold rounded">${symptom.id || 'N/A'}</span>
+                    <span class="inline-block px-2 py-0.5 ${weightClass} text-xs font-semibold rounded">${weightText}</span>
+                    <span class="font-medium text-slate-900">${symptom.name}</span>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold ${severityColor} border">
+                    ${symptom.severity.charAt(0).toUpperCase() + symptom.severity.slice(1)}
+                </span>
+            </div>
+        `;
+    });
+    
+    if (summaryHTML === '') {
+        summaryHTML = '<p class="text-slate-500 italic">No symptoms selected during assessment.</p>';
+    }
+    summaryDiv.innerHTML = summaryHTML;
+
+    // Recommendations (updated based on weighted score)
+    const recList = document.getElementById('recommendations-list');
+    let recs = [];
+    
+    if (data.overall === 'none' || data.totalSymptoms === 0) {
+        recs = [
+            "Continue monitoring developmental milestones",
+            "Routine pediatric/primary care recommended",
+            "Reassess if new concerns arise"
+        ];
+    } else {
+        recs.push("Comprehensive diagnostic evaluation by specialist recommended");
+        
+        // Add recommendations based on weighted score
+        if (data.weightedScore > 20) {
+            recs.push("URGENT: Comprehensive multidisciplinary evaluation strongly recommended");
+        }
+        
+        if (data.domainA.symptoms.length > 0) {
+            recs.push("Speech-Language Pathology evaluation for communication concerns");
+            recs.push("Social skills assessment and training recommended");
+        }
+        if (data.domainB.symptoms.length > 0) {
+            recs.push("Occupational Therapy for sensory/behavioral concerns");
+        }
+        
+        // Intensity-based recommendations
+        if (data.overall === 'severe' || data.weightedScore > 24) {
+            recs.push("Intensive behavioral intervention program recommended");
+            recs.push("Consider augmentative communication evaluation if speech delayed");
+            recs.push("Caregiver support and respite services recommended");
+            recs.push("Psychiatric evaluation for co-occurring conditions");
+        } else if (data.overall === 'moderate' || data.weightedScore > 12) {
+            recs.push("Structured therapy program (10-15 hours/week recommended)");
+            recs.push("School/IEP evaluation and accommodations");
+        }
+        
+        if (data.functioning === 'independent' && data.overall !== 'severe') {
+            recs.push("Workplace/school accommodation assessment may be beneficial");
+        }
+        
+        // Add note about symptom count
+        recs.push(`Note: Assessment identified ${data.totalSymptoms} total symptoms with a weighted clinical score of ${data.weightedScore}/37.`);
+    }
+    
+    recList.innerHTML = recs.map(r => `<li class="flex items-start gap-2"><span class="text-blue-600">•</span><span>${r}</span></li>`).join('');
+
+    // Support Plan (updated for weighted approach)
+    const supportDiv = document.getElementById('support-plan');
+    let supportHTML = '';
+    
+    if (data.overall === 'mild') {
+        supportHTML = `
+            <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                <h4 class="font-bold text-green-900 mb-2">Mild Support Plan (Score: ${data.weightedScore}/37)</h4>
+                <ul class="text-sm text-green-800 space-y-1 list-disc list-inside">
+                    <li>Social skills coaching or group therapy</li>
+                    <li>Cognitive Behavioral Therapy (CBT) if anxiety present</li>
+                    <li>Executive function coaching/organizational skills</li>
+                    <li>Academic/workplace accommodations as needed</li>
+                    <li>Periodic monitoring (every 6-12 months)</li>
+                    <li>Psychoeducation for family members</li>
+                </ul>
+            </div>
+        `;
+    } else if (data.overall === 'moderate') {
+        supportHTML = `
+            <div class="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                <h4 class="font-bold text-amber-900 mb-2">Moderate Support Plan (Score: ${data.weightedScore}/37)</h4>
+                <ul class="text-sm text-amber-800 space-y-1 list-disc list-inside">
+                    <li>Regular Speech-Language Therapy (2-3x weekly)</li>
+                    <li>Occupational Therapy for sensory integration</li>
+                    <li>Structured social skills training with professional</li>
+                    <li>Specialized educational support/IEP considerations</li>
+                    <li>Behavioral support plan implementation</li>
+                    <li>Family training and support services</li>
+                    <li>Consider medication evaluation for co-occurring symptoms</li>
+                </ul>
+            </div>
+        `;
+    } else if (data.overall === 'severe') {
+        supportHTML = `
+            <div class="p-4 bg-rose-50 rounded-lg border border-rose-200">
+                <h4 class="font-bold text-rose-900 mb-2">Severe Support Plan (Score: ${data.weightedScore}/37)</h4>
+                <ul class="text-sm text-rose-800 space-y-1 list-disc list-inside">
+                    <li>Intensive daily therapy program (25+ hours/week)</li>
+                    <li>Applied Behavior Analysis (ABA) or Positive Behavior Support</li>
+                    <li>Augmentative and Alternative Communication (AAC) if nonverbal</li>
+                    <li>Full-time educational support/specialized schooling</li>
+                    <li>24/7 supervision and safety monitoring</li>
+                    <li>Comprehensive family support and respite care</li>
+                    <li>Medical management of co-occurring conditions</li>
+                    <li>Psychiatric consultation recommended</li>
+                </ul>
+            </div>
+        `;
+    } else {
+        supportHTML = `
+            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <p class="text-slate-600">No specific interventions recommended at this time. Maintain routine developmental surveillance.</p>
+            </div>
+        `;
+    }
+    supportDiv.innerHTML = supportHTML;
+
+    // Referrals
+    const referralList = document.getElementById('referral-list');
+    let referrals = [];
+    
+    if (data.overall !== 'none') {
+        referrals.push("Developmental-Behavioral Pediatrician");
+        referrals.push("Clinical Psychologist (Diagnostic Evaluation)");
+        
+        if (data.domainA.symptoms.length > 0) referrals.push("Speech-Language Pathologist");
+        if (data.domainB.symptoms.length > 0) referrals.push("Occupational Therapist");
+        
+        // Weighted score based referrals
+        if (data.weightedScore > 20) referrals.push("Neuropsychologist");
+        if (data.weightedScore > 15) referrals.push("Board Certified Behavior Analyst (BCBA)");
+        if (data.weightedScore > 10) referrals.push("Child/Adolescent Psychiatrist");
+    } else {
+        referrals.push("Primary Care Physician for routine monitoring");
+    }
+    
+    referralList.innerHTML = referrals.map(r => `<li>• ${r}</li>`).join('');
+}
+
+        // Print Report
+        function printReport() {
+            window.print();
+        }
+
+        // Email Status Function
+        function showEmailStatus(message, isSuccess) {
+            const statusDiv = document.getElementById('email-status');
+            const statusText = document.getElementById('email-status-text');
+            const icon = statusDiv.querySelector('i');
+            
+            statusText.textContent = message;
+            statusDiv.classList.remove('hidden', 'success', 'error');
+            
+            if (isSuccess) {
+                statusDiv.classList.add('success');
+                icon.setAttribute('data-lucide', 'check-circle');
+            } else {
+                statusDiv.classList.add('error');
+                icon.setAttribute('data-lucide', 'alert-circle');
+            }
+            
+            lucide.createIcons();
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Email Report Function - UPDATED with proper EmailJS integration
+        function emailReport(event) {
+            if (!currentPatient) {
+                alert('Please log in first');
+                return;
+            }
+
+            // Show email input dialog
+            const emailInput = prompt("Enter email address to send the report:", currentPatient.email || "");
+            
+            if (!emailInput) {
+                showEmailStatus('Email sending cancelled', false);
+                return;
+            }
+
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput)) {
+                showEmailStatus('Please enter a valid email address', false);
+                return;
+            }
+
+            // Collect report data
+            const reportDate = document.getElementById('report-date').textContent;
+            const reportId = document.getElementById('report-id').textContent;
+            const patientId = document.getElementById('report-patient-id').textContent;
+            const overallLevel = document.getElementById('overall-level').textContent;
+            const overallLabel = document.getElementById('overall-label').textContent;
+            
+            // Get symptom summary
+            const symptomElements = document.querySelectorAll('#symptom-summary .flex');
+            let symptomsList = '';
+            symptomElements.forEach(el => {
+                symptomsList += el.innerText + '\n';
+            });
+            
+            // Get recommendations
+            const recommendations = document.getElementById('recommendations-list').innerText;
+            
+            // Get support plan
+            const supportPlan = document.getElementById('support-plan').innerText;
+            
+            // Show loading state
+            const emailBtn = document.getElementById('email-report-btn');
+            const originalText = emailBtn.innerHTML;
+            emailBtn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i> Sending...';
+            emailBtn.disabled = true;
+
+            // Prepare email template parameters
+            // IMPORTANT: Your EmailJS template (template_2sunddk) must have "To Email" set to {{to_email}}
+            // Go to dashboard.emailjs.com → Email Templates → edit template → put {{to_email}} in "To Email" field
+            const templateParams = {
+                to_email: emailInput,
+                user_email: emailInput,   // Fallback if template uses {{user_email}} for recipient
+                email: emailInput,        // Fallback if template uses {{email}} for recipient
+                subject: `ASD Clinical Assessment Report - ${patientId}`,
+                report_id: reportId,
+                patient_id: patientId,
+                report_date: reportDate,
+                severity_level: overallLevel,
+                severity_label: overallLabel,
+                symptoms: symptomsList || 'No symptoms reported',
+                recommendations: recommendations,
+                support_plan: supportPlan,
+                assessment_date: new Date().toLocaleString(),
+                from_name: "ASD Resource Hub",
+                message: `Please find attached the clinical assessment report for ${patientId}.`
+            };
+
+            // Send email using EmailJS with your service and template IDs
+            emailjs.send('service_dkpxhpq', 'template_2sunddk', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showEmailStatus(`Report sent successfully to ${emailInput}!`, true);
+                    emailBtn.innerHTML = originalText;
+                    emailBtn.disabled = false;
+                    lucide.createIcons();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    const errMsg = (error?.text || error?.message || '').toLowerCase();
+                    const hint = errMsg.includes('recipient') || errMsg.includes('empty')
+                        ? ' Set "To Email" in your EmailJS template to {{to_email}} (dashboard.emailjs.com)'
+                        : '';
+                    showEmailStatus('Failed to send email.' + hint, false);
+                    emailBtn.innerHTML = originalText;
+                    emailBtn.disabled = false;
+                    lucide.createIcons();
+                });
+        }
+
+        // New Assessment
+        function newAssessment() {
+            document.getElementById('report-section').classList.add('hidden');
+            document.getElementById('assessment-section').classList.remove('hidden');
+            document.getElementById('symptom-form').reset();
+            document.querySelectorAll('.severity-selector').forEach(el => el.classList.add('hidden'));
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Expert Modal Functions
+        function openExpertModal() {
+            document.getElementById('expert-modal').classList.remove('hidden');
+            document.getElementById('expert-modal').classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeExpertModal() {
+            document.getElementById('expert-modal').classList.add('hidden');
+            document.getElementById('expert-modal').classList.remove('flex');
+        }
+
+        // Add demo user for testing
+        if (!userDatabase['demo']) {
+            userDatabase['demo'] = { 
+                password: 'demo123', 
+                name: 'Demo User', 
+                email: 'demo@example.com', 
+                created: new Date().toISOString() 
+            };
+            localStorage.setItem('asd_user_database', JSON.stringify(userDatabase));
+        }
+    </script>
+    
+</body>
+</html>
